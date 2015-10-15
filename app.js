@@ -1,10 +1,13 @@
 (function() {
     var app = angular.module('flapperNews', []);
 
-    app.controller('MainCtrl', ['$scope', function($scope) {
+    app.controller('MainCtrl', [
+        '$scope',
+        'posts',
+      function($scope, posts) {
         $scope.test = 'Hello world!';
 
-        $scope.posts = [];
+        $scope.posts = posts;
 
         $scope.addPost = function() {
             if (!$scope.title || $scope.title === '')
@@ -15,7 +18,7 @@
                 link: $scope.link,
                 upvotes: 0,
             });
-            
+
             $scope.title = '';
             $scope.link = '';
         };
@@ -24,6 +27,14 @@
             post.upvotes ++;
         }
 
+    }]);
+
+    app.factory('posts', [function() {
+        var o = {
+            posts: [],
+        };
+
+        return o;
     }]);
 
 })();
